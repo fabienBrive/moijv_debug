@@ -1,0 +1,41 @@
+{% extends "@WebProfiler/Profiler/layout.html.twig" %}
+
+
+{% block toolbar %}
+    {% set icon %}
+        <img src="{{ asset('images/iconeProfiler.jpg') }}" alt="" class="head">
+        <span class="sf-toolbar-value">{{ collector.result is defined
+            ? collector.result.messages | length
+            : 0 }} messages</span>
+    {% endset %}
+
+    {% set text %}
+        {% if collector.result is defined %}
+            <div class="sf-toolbar-info-piece">
+                <strong>Messages</strong>
+                <span> {{ collector.result.messages | length }} </span>
+            </div>
+        {% endif %}
+    {% endset %}
+
+    {{ include ('@WebProfiler/Profiler/toolbar_item.html.twig', {link : true}) }}
+
+{% endblock %}
+
+{% block menu %}
+    <span class="label">
+        <span class="icon">
+            <img src="{{ asset('images/iconeProfiler.jpg') }}" alt="emoticon" class="head">
+        </span>
+        <strong>HTML Validator</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    <h2> {{ collector.result.messages | length }} Messages</h2>
+    {% for message in collector.result.messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endblock %}
+
+
